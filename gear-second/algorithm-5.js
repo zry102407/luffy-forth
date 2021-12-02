@@ -48,40 +48,10 @@ function hasCycle(head) {
 }
 
 /**
- * K个一组翻转链表
+ * K个一组反转链表
  */
-function reverseKGroup(head, k) {
-    const hair = new ListNode(0);
-    hair.next = head;
-    let pre = hair;
-    let cur = head;
-    let n = 0;
-    let count;
-    while (cur) {
-        cur = cur.next;
-        n++;
-    }
-    count = Math.floor(n / k);
-    while (count) {
-        let tail = pre;
-        for (let i = 0; i < k; i++) {
-            tail = tail.next;
-        }
-        const next = tail.next;
-        [head, tail] = reverseList(head, tail);
-        if (count === Math.floor(n / k)) {
-            hair.next = tail;
-        }
-        pre.next = head;
-        tail.next = next;
-        pre = tail;
-        head = tail.next;
-        count--;
-    }
-    return hair.next;
-}
 
-// 进行链表翻转，参考翻转链表函数，进行k - 1次旋转
+// 进行链表翻转，参考反转链表函数，进行k - 1次旋转
 function reverseList(head, tail) {
     let prev = tail.next;
     let cur = head;
