@@ -80,3 +80,27 @@ var reorderList = function (head) {
 /**
  * 移除无效的括号
  */
+var minRemoveToMakeValid = function (s) {
+    let arr = [],
+        arr1 = [];
+    let map = {
+        "(": ")",
+    };
+    let len;
+    for (let i = 0; i < s.length; i++) {
+        arr.push(s[i]);
+        if (s[i] === "(" || s[i] === ")") {
+            len = arr1.length;
+            if (len && map[arr1[len - 1].str] === s[i]) {
+                arr1.pop();
+            } else {
+                arr1.push({ index: i, str: s[i] });
+            }
+        }
+    }
+    for (let i = arr1.length - 1; i >= 0; i--) {
+        arr[arr1[i].index] = "";
+    }
+
+    return arr.join("");
+};
