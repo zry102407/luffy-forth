@@ -48,3 +48,22 @@ var levelOrder = function (root) {
     }
     return res;
 };
+
+/**
+ * 二叉树的层序遍历
+ */
+var levelOrderBottom = function (root) {
+    if (!root) {
+        return [];
+    }
+    let queue = [[root, 0]];
+    let res = [];
+    while (queue.length) {
+        const [node, level] = queue.shift();
+        if (!res[level]) res[level] = [];
+        res[level].push(node.val);
+        node.left && queue.push([node.left, level + 1]);
+        node.right && queue.push([node.right, level + 1]);
+    }
+    return res.reverse();
+};
