@@ -67,3 +67,26 @@ var levelOrderBottom = function (root) {
     }
     return res.reverse();
 };
+
+/**
+ * 二叉树的锯齿形层序遍历
+ */
+var zigzagLevelOrder = function (root) {
+    if (!root) {
+        return [];
+    }
+    let queue = [[root, 0, false]];
+    let res = [];
+    while (queue.length) {
+        const [node, level, sort] = queue.shift();
+        if (!res[level]) res[level] = [];
+        if (sort) {
+            res[level].unshift(node.val);
+        } else {
+            res[level].push(node.val);
+        }
+        node.left && queue.push([node.left, level + 1, !sort]);
+        node.right && queue.push([node.right, level + 1, !sort]);
+    }
+    return res;
+};
