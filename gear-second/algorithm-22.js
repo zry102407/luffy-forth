@@ -31,6 +31,30 @@ var kthSmallest = function (root, k) {
 };
 
 /**
+ * 二叉树的右视图
+ */
+var rightSideView = function (root) {
+    if (!root) return [];
+    let queue = [];
+    let level = 0;
+    let result = [];
+    queue.push({ level, node: root });
+    while (queue.length) {
+        level++;
+        let len = queue.length;
+        while (len--) {
+            let node = queue.shift().node;
+            node.left && queue.push({ level, node: node.left });
+            node.right && queue.push({ level, node: node.right });
+            if (!len) {
+                result.push(node.val);
+            }
+        }
+    }
+    return result;
+};
+
+/**
  * 相同的树
  */
 var isSameTree = function (p, q) {
@@ -40,5 +64,22 @@ var isSameTree = function (p, q) {
         p.val === q.val &&
         isSameTree(p.left, q.left) &&
         isSameTree(p.right, q.right)
+    );
+};
+
+/**
+ * 对称二叉树
+ */
+var isSymmetric = function (root) {
+    return check(root.right, root.left);
+};
+
+var check = function (root1, root2) {
+    if (!root1 && !root2) return true;
+    if (!root2 || !root1) return false;
+    return (
+        root1.val === root2.val &&
+        check(root1.left, root2.right) &&
+        check(root1.right, root2.left)
     );
 };
