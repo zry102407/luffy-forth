@@ -54,6 +54,26 @@ var rightSideView = function (root) {
     return result;
 };
 
+// 之前需要知道各个节点的层数，在右视图中不需要则可以去掉level
+var rightSideView = function (root) {
+    if (!root) return [];
+    let queue = [];
+    let result = [];
+    queue.push(root);
+    while (queue.length) {
+        let len = queue.length;
+        while (len--) {
+            let node = queue.shift();
+            node.left && queue.push(node.left);
+            node.right && queue.push(node.right);
+            if (!len) {
+                result.push(node.val);
+            }
+        }
+    }
+    return result;
+};
+
 /**
  * 相同的树
  */
