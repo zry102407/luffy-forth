@@ -50,36 +50,28 @@ var sortList = function (head) {
 };
 
 /**
- * 合并K个升序链表
+ * 两颗二叉搜索树中的所有元素
  */
-var mergeKLists = function (lists) {
-    let head = new ListNode();
-    head.next = lists[0] || null;
-    head = head.next;
-    for (let i = 1; i < lists.length; i++) {
-        head = mergeTwoList(head, lists[i]);
-    }
-    return head;
+var getAllElements = function (root1, root2) {
+    return merge(traversal(root1), traversal(root2));
 };
-
-function mergeTwoList(list1, list2) {
-    let head = new ListNode();
-    let result = head;
-    while (list1 && list2) {
-        if (list1.val > list2.val) {
-            head.next = list2;
-            list2 = list2.next;
-        } else {
-            head.next = list1;
-            list1 = list1.next;
-        }
-        head = head.next;
+const traversal = (node, arr = []) => {
+    if (node) {
+        traversal(node.left, arr);
+        arr.push(node.val);
+        traversal(node.right, arr);
     }
-    if (list1) {
-        head.next = list1;
+    return arr;
+};
+const merge = (arr1, arr2) => {
+    const ret = [];
+    let idx1 = (idx2 = 0);
+    while (idx1 < arr1.length && idx2 < arr2.length) {
+        arr1[idx1] < arr2[idx2]
+            ? ret.push(arr1[idx1++])
+            : ret.push(arr2[idx2++]);
     }
-    if (list2) {
-        head.next = list2;
-    }
-    return result.next;
-}
+    while (idx1 < arr1.length) ret.push(arr1[idx1++]);
+    while (idx2 < arr2.length) ret.push(arr2[idx2++]);
+    return ret;
+};
